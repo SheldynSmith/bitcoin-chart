@@ -2,10 +2,8 @@ function getPrices() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            //document.getElementById("price-list").innerHTML = this.responseText;
             console.log(this.response)
             var prices = JSON.parse(this.response);
-            //document.getElementById("price-list").innerHTML = JSON.stringify(prices);
             for (var key in prices) {
                 var price = prices[key];
                 var listItem = document.createElement("LI");
