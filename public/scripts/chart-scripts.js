@@ -3,8 +3,8 @@ function getPrices() {
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             //document.getElementById("price-list").innerHTML = this.responseText;
-            var jsonObj = JSON.parse(this.response);
-            var prices = jsonObj.bpi;
+            console.log(this.response)
+            var prices = JSON.parse(this.response);
             //document.getElementById("price-list").innerHTML = JSON.stringify(prices);
             for (var key in prices) {
                 var price = prices[key];
@@ -17,6 +17,6 @@ function getPrices() {
             }
         }
     };
-    xhttp.open("GET", "https://api.coindesk.com/v1/bpi/historical/close.json", true);
+    xhttp.open("GET", "/get-prices", true);
     xhttp.send();
 }

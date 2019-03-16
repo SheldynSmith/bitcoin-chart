@@ -1,5 +1,6 @@
 const express = require('express')
 const path = require('path')
+const https = require('https')
 const PORT = process.env.PORT || 5000
 
 var app = express()
@@ -12,8 +13,22 @@ app.get('/get-prices', requestPrices)
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 function requestPrices(req, res) {
-  
+  https.get('https://api.coindesk.com/v1/bpi/historical/close.json', (apiResonse) => {
+    let data = '';
 
-  res.writeHead(200, {"Content-Type": "application/json"})
-  
+    apiResonse.on('data', (chunk) => {
+      data += chunk;
+    });
+
+    apiResonse.on('end', () => {
+      var prices = JSON.parse(data).bpi;
+      console.log(prices)
+      var jsonPrices = JSON.stringify(prices);
+
+      res.json(prices);
+    });
+
+  }).on("error", (err) => {
+    console.log("Error: " + err.message);
+  });
 }
