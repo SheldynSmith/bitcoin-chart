@@ -13,7 +13,9 @@ app.get('/get-prices', requestPrices)
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 function requestPrices(req, res) {
-  https.get('https://api.coindesk.com/v1/bpi/historical/close.json', (apiResonse) => {
+  var query = req.url.split("?")[1];
+  console.log(query);
+  https.get('https://api.coindesk.com/v1/bpi/historical/close.json?' + query, (apiResonse) => {
     let data = '';
 
     apiResonse.on('data', (chunk) => {
@@ -22,7 +24,7 @@ function requestPrices(req, res) {
 
     apiResonse.on('end', () => {
       var prices = JSON.parse(data).bpi;
-      console.log(prices)
+      //console.log(prices)
       var jsonPrices = JSON.stringify(prices);
 
       res.json(prices);

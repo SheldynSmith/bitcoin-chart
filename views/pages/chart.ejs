@@ -21,9 +21,13 @@
     
 </head>
 <body>
+    <button class="currency-button" id="USD" onclick="getData('USD')">USD</button>
+    <button class="currency-button" id="GBP" onclick="getData('GBP')">GBP</button>
+    <button class="currency-button" id="CNY" onclick="getData('CNY')">CNY</button>
+
     <div id='myChart'><a class="zc-ref" href="https://www.zingchart.com/">Charts by ZingChart</a></div>
 
     <script src="scripts/chart-scripts.js"></script>
-    <script>getData()</script>
+    <script>getData('USD')</script>
 </body>
 </html>

@@ -1,6 +1,6 @@
 const numInvervals = 5;
 
-function getData() {
+function getData(currency) {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -16,15 +16,15 @@ function getData() {
             // console.log(dateArray);
             dateArray = dateArray.reverse();
             priceArray = priceArray.reverse();
-            loadChart(dateArray, priceArray)
+            loadChart(dateArray, priceArray, currency)
         }
     };
-    xhttp.open("GET", "/get-prices", true);
+    xhttp.open("GET", "/get-prices?currency=" + currency, true);
     xhttp.send();
 }
 
 
-function loadChart(dateArray, priceArray) {
+function loadChart(dateArray, priceArray, currency) {
     console.log(dateArray, priceArray);
     zingchart.THEME = "classic";
 
@@ -87,7 +87,7 @@ function loadChart(dateArray, priceArray) {
             "font-size": "16px"
         },
         "subtitle": {
-            "text": "",
+            "text": currency,
             "color": "#818181",
             "font-family": "Roboto",
             "font-size": "11px",
@@ -104,17 +104,6 @@ function loadChart(dateArray, priceArray) {
             "visible": false
         },
         "labels": [{
-            "id": "reload_btn",
-            "background-color": "#fff",
-            "border-color": "#777",
-            "border-width": 1,
-            "border-radius": 5,
-            "padding": "5px",
-            "text": "Reload",
-            "cursor": "hand",
-            "font-color": "#777",
-            "x": "60px",
-            "y": "10px"
         }],
         "plot": {
             "max-trackers": 0,
