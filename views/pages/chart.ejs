@@ -5,12 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Bitcoin Chart</title>
-    <script src="scripts/chart-scripts.js"></script>
+    <script src="scripts/price-scripts.js"></script>
+    <script src="https://cdn.zingchart.com/zingchart.min.js"></script>
+    <script>
+        zingchart.MODULESDIR = "https://cdn.zingchart.com/modules/";
+        ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "ee6b7db5b51705a13dc2339db3edaf6d"];
+    </script>
+    
+    <link href='https://fonts.googleapis.com/css?family=Roboto:300' rel='stylesheet' type='text/css'>
+    <style>
+        .zc-ref {
+        display: none;
+        }
+    </style>
+    
 </head>
 <body>
-    <button name="get-prices" onclick="getPrices()">Get Prices</button>
-    <ul id="price-list">
+    <div id='myChart'><a class="zc-ref" href="https://www.zingchart.com/">Charts by ZingChart</a></div>
 
-    </ul>
+    <script src="scripts/chart-scripts.js"></script>
+    <script>getData()</script>
 </body>
 </html>
