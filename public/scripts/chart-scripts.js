@@ -239,7 +239,8 @@ function loadChart(dateArray, priceArray, currency) {
     zingchart.render({
         id: 'myChart',
         data: myConfig,
-        hideprogresslogo: true
+        hideprogresslogo: true,
+        height: 800
     });
 
     zingchart.label_click = function(p) {
