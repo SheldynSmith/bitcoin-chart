@@ -1,20 +1,20 @@
-function getPrices() {
+var currency = "USD";
+
+function getCurrentPrice(newCurrency = currency) {
+    currency = newCurrency;
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.response)
-            var prices = JSON.parse(this.response);
-            for (var key in prices) {
-                var price = prices[key];
-                var listItem = document.createElement("LI");
-                var text = document.createTextNode("Date " + key + " Price: " + price.toFixed(2));
-                listItem.appendChild(text);
-
-                var priceList = document.getElementById("price-list");
-                priceList.appendChild(listItem);
-            }
+            // console.log(this.response)
+            var parsedResponse = JSON.parse(this.response);
+            var currentPrice = parsedResponse.bpi[currency].rate;
+            document.getElementById("current-price").innerHTML = currency + " " + currentPrice;
         }
     };
-    xhttp.open("GET", "/get-prices", true);
+    var url = "https://api.coindesk.com/v1/bpi/currentprice/" + currency + ".json";
+    xhttp.open("GET", url, true);
     xhttp.send();
 }
+
+getCurrentPrice();
+setInterval(getCurrentPrice, 15000);
