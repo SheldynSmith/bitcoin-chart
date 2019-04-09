@@ -1,6 +1,10 @@
 const numInvervals = 5;
 
-function getData(currency) {
+function getData() {
+    var currency = document.getElementById("select-currency").value;
+    var startDate = document.getElementById("start-date").value;
+    var endDate = document.getElementById("end-date").value;
+    //alert(startDate);
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -19,7 +23,13 @@ function getData(currency) {
             loadChart(dateArray, priceArray, currency)
         }
     };
-    xhttp.open("GET", "/get-prices?currency=" + currency, true);
+
+    var dateRange = "";
+    if (startDate && endDate) {
+        dateRange += "&start=" + startDate + "&end=" + endDate;
+    }
+    //alert(dateRange);
+    xhttp.open("GET", "/get-prices?currency=" + currency + dateRange, true);
     xhttp.send();
 }
 

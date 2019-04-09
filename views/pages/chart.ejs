@@ -20,16 +20,32 @@
     </style>
 </head>
 <body>
-    <button class="currency-button" id="USD" onclick="getData('USD'); getCurrentPrice('USD')">USD</button>
+    <label for="select-currency">Choose a currency:</label>
+    <select name="select-currency" id="select-currency" onchange="getData(); getCurrentPrice()">
+        <option value="USD" selected>USD</option>
+        <option value="GBP">GBP</option>
+        <option value="EUR">EUR</option>
+        <option value="CNY">CNY</option>
+    </select>
+    <label for="start-date">Start Date:</label>
+    <input type="date" name="start-date" id="start-date">
+    <label for="end-date">End Date:</label>
+    <input type="date" name="end-date" id="end-date">
+    <button onclick="getData()">Update</button>
+    
+    <!-- <button class="currency-button" id="USD" onclick="getData('USD'); getCurrentPrice('USD')">USD</button>
     <button class="currency-button" id="GBP" onclick="getData('GBP'); getCurrentPrice('GBP')">GBP</button>
     <button class="currency-button" id="EUR" onclick="getData('EUR'); getCurrentPrice('EUR')">EUR</button>
-    <button class="currency-button" id="CNY" onclick="getData('CNY'); getCurrentPrice('CNY')">CNY</button>
+    <button class="currency-button" id="CNY" onclick="getData('CNY'); getCurrentPrice('CNY')">CNY</button> -->
     <div id="price-wrapper">
         <label for="current-price">Current Price:</label>
         <div id="current-price"></div>
     </div>
     <div id='myChart'><a class="zc-ref" href="https://www.zingchart.com/">Charts by ZingChart</a></div>
     <script src="scripts/chart-scripts.js"></script>
-    <script>getData('USD')</script>
+    <script>
+        getData();
+        getCurrentPrice();
+    </script>
 </body>
 </html>
