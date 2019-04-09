@@ -21,11 +21,9 @@ function getData() {
         document.getElementById("invalidDates").style.visibility = "hidden";
     }
     document.getElementById("loading").style.visibility = "visible";
-    //alert(startDate);
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            //console.log(this.response)
             var dateArray = [];
             var priceArray = [];
             var prices = JSON.parse(this.response);
@@ -34,7 +32,6 @@ function getData() {
                 dateArray.push(key);
                 priceArray.push(price);
             }
-            // console.log(dateArray);
             dateArray = dateArray.reverse();
             priceArray = priceArray.reverse();
             loadChart(dateArray, priceArray, currency)
@@ -45,22 +42,21 @@ function getData() {
     if (startDate && endDate) {
         dateRange += "&start=" + startDate + "&end=" + endDate;
     }
-    //alert(dateRange);
     xhttp.open("GET", "/get-prices?currency=" + currency + dateRange, true);
     xhttp.send();
 }
 
 
 function loadChart(dateArray, priceArray, currency) {
-    // console.log(dateArray, priceArray);
     zingchart.THEME = "classic";
 
     var maxPrice = Math.max.apply(null, priceArray);
     var minPrice = Math.min.apply(null, priceArray);
     var priceInterval = (maxPrice - minPrice) / numInvervals;
     var priceRangeString = minPrice.toString() + ":" + maxPrice.toString() + ":" + priceInterval.toString();
-    // console.log(priceRangeString);
     
+    // This project makes use of the ZingChart library
+    // Much of the configuration settings for the chart come form the ZingChart examples found at zingchart.com
     var myConfig = {
         "gui": {
         "behaviors": [{

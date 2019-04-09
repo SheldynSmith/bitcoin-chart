@@ -25,6 +25,7 @@
     .jumbotron .lang-logo img {
       max-width: 100%; }
 
+/* The code for the loading circle was found at w3schools.com */
 .loader {
   border: 16px solid #f3f3f3;
   border-radius: 50%;

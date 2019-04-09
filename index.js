@@ -24,7 +24,6 @@ function requestPrices(req, res) {
 
     apiResonse.on('end', () => {
       var prices = JSON.parse(data).bpi;
-      //console.log(prices)
       var jsonPrices = JSON.stringify(prices);
 
       res.json(prices);
