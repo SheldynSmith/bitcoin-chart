@@ -18,6 +18,7 @@
         display: none;
         }
     </style>
+    <link rel="stylesheet" href="stylesheets/main.css">
 </head>
 <body>
     <label for="select-currency">Choose a currency:</label>
@@ -27,22 +28,39 @@
         <option value="EUR">EUR</option>
         <option value="CNY">CNY</option>
     </select>
+    <% var date = new Date();
+    var ddToday = String(date.getDate()).padStart(2, '0');
+    var mmToday = String(date.getMonth() + 1).padStart(2, '0');
+    var yyyyToday = String(date.getFullYear());
+    var today = yyyyToday + "-" + mmToday + "-" + ddToday;
+
+    date.setDate(date.getDate() - 1);
+    var ddYest = String(date.getDate()).padStart(2, '0');
+    var mmYest = String(date.getMonth() + 1).padStart(2, '0');
+    var yyyyYest = String(date.getFullYear());
+    var yesterday = yyyyYest + "-" + mmYest + "-" + ddYest;
+
+    date.setDate(date.getDate() + 1);
+    date.setMonth(date.getMonth() - 1);
+    var ddPast = String(date.getDate()).padStart(2, '0');
+    var mmPast = String(date.getMonth() + 1).padStart(2, '0');
+    var yyyyPast = String(date.getFullYear());
+    var past = yyyyPast + "-" + mmPast + "-" + ddPast;
+    %>
     <label for="start-date">Start Date:</label>
-    <input type="date" name="start-date" id="start-date">
+    <input type="date" name="start-date" id="start-date" min="2010-07-17" max="<%= yesterday %>" value="<%= past %>">
     <label for="end-date">End Date:</label>
-    <input type="date" name="end-date" id="end-date">
+    <input type="date" name="end-date" id="end-date" min="2010-07-17" max="<%= today %>" value="<%= today %>">
     <button onclick="getData()">Update</button>
-    
-    <!-- <button class="currency-button" id="USD" onclick="getData('USD'); getCurrentPrice('USD')">USD</button>
-    <button class="currency-button" id="GBP" onclick="getData('GBP'); getCurrentPrice('GBP')">GBP</button>
-    <button class="currency-button" id="EUR" onclick="getData('EUR'); getCurrentPrice('EUR')">EUR</button>
-    <button class="currency-button" id="CNY" onclick="getData('CNY'); getCurrentPrice('CNY')">CNY</button> -->
     <div id="price-wrapper">
         <label for="current-price">Current Price:</label>
         <div id="current-price"></div>
     </div>
     <div id='myChart'><a class="zc-ref" href="https://www.zingchart.com/">Charts by ZingChart</a></div>
     <script src="scripts/chart-scripts.js"></script>
+    <div id="loading" class="loader"></div>
+    <div id="invalidDates">Start date must be before end date</div>
+    <div id="tooEarly">Dates cannot be before Jul 17, 2010</div>
     <script>
         getData();
         getCurrentPrice();

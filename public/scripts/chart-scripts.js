@@ -4,6 +4,23 @@ function getData() {
     var currency = document.getElementById("select-currency").value;
     var startDate = document.getElementById("start-date").value;
     var endDate = document.getElementById("end-date").value;
+    
+    if (startDate < "2010-07-17" || endDate < "2010-07-17") {
+        document.getElementById("tooEarly").style.visibility = "visible";
+        return;
+    }
+    else {
+        document.getElementById("tooEarly").style.visibility = "hidden";
+    }
+
+    if (startDate >= endDate) {
+        document.getElementById("invalidDates").style.visibility = "visible";
+        return;
+    }
+    else {
+        document.getElementById("invalidDates").style.visibility = "hidden";
+    }
+    document.getElementById("loading").style.visibility = "visible";
     //alert(startDate);
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
@@ -35,14 +52,15 @@ function getData() {
 
 
 function loadChart(dateArray, priceArray, currency) {
-    console.log(dateArray, priceArray);
+    // console.log(dateArray, priceArray);
     zingchart.THEME = "classic";
 
     var maxPrice = Math.max.apply(null, priceArray);
     var minPrice = Math.min.apply(null, priceArray);
     var priceInterval = (maxPrice - minPrice) / numInvervals;
     var priceRangeString = minPrice.toString() + ":" + maxPrice.toString() + ":" + priceInterval.toString();
-    console.log(priceRangeString);
+    // console.log(priceRangeString);
+    
     var myConfig = {
         "gui": {
         "behaviors": [{
@@ -256,4 +274,5 @@ function loadChart(dateArray, priceArray, currency) {
     zingchart.label_click = function(p) {
         zingchart.exec(p.id, 'reload');
     };
+    document.getElementById("loading").style.visibility = "hidden";
 }
